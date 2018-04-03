@@ -61,11 +61,10 @@ function fillUpdateDiv(airport){
     console.log(airport);
     $("#btndelete").attr('onclick', 'submitDelete(' + airport.name + ');');
     $("#editbutton").attr('onclick', 'submitEdit(' + airport.name + ');');
-    document.getElementById("modal-title-all-tables").innerHTML="Edit Table";
-    Number($("#tableNumber").val(table.tableNumber));
-    Number($("#numberOfSeats").val(table.numberOfSeats));
+    document.getElementById("modal-title-all-tables").innerHTML="Edit Airport";
+    $("#name").val(airport.name);
     $("#confirmbutton").css('display', 'inline-block');
-    deleteID = table.tableNumber;
+    deleteID = airport.name;
     var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete();">Confirm delete</button>';
     $('#confirmbutton').popover({
         animation:true,
@@ -88,12 +87,12 @@ function submitEdit(id){
     console.log("Formdata");
     var formData = $("#tableForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
     console.log(formData);
-    var tableNumber = id;
+    var name = id;
     for(var key in formData){
         if(formData[key] == "" || formData == null) delete formData[key];
     }
     $.ajax({
-        url:"/api/table/update/" + tableNumber,
+        url:"/api/airport/update/" + name,
         type:"put",
         data: JSON.stringify(formData),
         contentType: "application/json; charset=utf-8",
@@ -112,7 +111,7 @@ function submitDelete(){
     var formData = $("#tableForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
     var tableNumber = deleteID;
     $.ajax({
-        url:"/api/table/" + tableNumber,
+        url:"/api/airport/delete/" + name,
         type:"delete",
         data: JSON.stringify(formData),
         success: getData,

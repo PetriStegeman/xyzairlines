@@ -30,6 +30,23 @@ public class AirportController {
         return airportRepository.findOne(name);
     }
 
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    public Airport update(@PathVariable String name, @RequestBody String newName){
 
+        Iterable<Airport> allAirports = airportRepository.findAll();
+        Airport correctAirport = new Airport();
+        for (Airport airport: allAirports) {
+            if(airport.getName() == name) {
+                correctAirport = airport;
+                correctAirport.setName(newName);
+            }
+        }
+        return correctAirport;
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable String name){
+        airportRepository.delete(name);
+    }
 
 }
