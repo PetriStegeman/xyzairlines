@@ -59,6 +59,11 @@ public class PlaneController {
         throw new RuntimeException();
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable("id") long planeId){
+    planeRepository.delete(planeId);
+    }
+
     @RequestMapping(value = "/transfer/{id}", method = RequestMethod.PUT)
     public Plane transfer(@PathVariable("id") long planeId, @RequestBody String airportName){
         Iterable<Plane> allPlanes = planeRepository.findAll();
@@ -80,6 +85,7 @@ public class PlaneController {
                 //Test if enough fuel
                 if(plane.getFuel()>=2000){
                     plane.setAirport(toGo);
+                    plane.setFuel(plane.getFuel()-2000);
                 }
                 else throw new RuntimeException(); //Not Enough Fuel
             }

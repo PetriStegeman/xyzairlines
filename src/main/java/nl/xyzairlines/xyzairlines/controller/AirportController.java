@@ -26,8 +26,8 @@ public class AirportController {
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    public Airport findOne(@PathVariable String name){
-        return airportRepository.findOne(name);
+    public Airport findOne(@PathVariable long id){
+        return airportRepository.findOne(id);
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
@@ -45,8 +45,8 @@ public class AirportController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public void delete(@PathVariable String name){
-        airportRepository.delete(name);
+    public void delete(@PathVariable long id){
+        airportRepository.delete(id);
     }
 
 }

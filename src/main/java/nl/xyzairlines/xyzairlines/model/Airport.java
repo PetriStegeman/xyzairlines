@@ -5,9 +5,9 @@ import javax.persistence.*;
 @Entity
 public class Airport {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
-    @OneToMany
-    private Plane plane;
 
     public String getName() {
         return name;
@@ -17,11 +17,4 @@ public class Airport {
         this.name = name;
     }
 
-    public Plane getPlane() {
-        return plane;
-    }
-
-    public void setPlane(Plane plane) {
-        this.plane = plane;
-    }
 }
