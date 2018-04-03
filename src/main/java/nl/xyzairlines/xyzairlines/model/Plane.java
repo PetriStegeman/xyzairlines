@@ -8,7 +8,6 @@ public class Plane {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long planeId;
     private int fuel;
-
     @ManyToOne
     private Airport airport;
 

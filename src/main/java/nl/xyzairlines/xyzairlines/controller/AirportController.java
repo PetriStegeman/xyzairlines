@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/plane")
-public class PlaneController {
+@RequestMapping("api/airport")
+public class AirportController {
 
     @Autowired
     private AirportRepository airportRepository;
