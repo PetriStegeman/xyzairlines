@@ -31,7 +31,7 @@ $(document).ready(function() {
 } );
 
 function getData() {
-      var api = "http://localhost:8080/apiairport";
+      var api = "http://localhost:8080/api/airport";
         $.get(api, function(data){
             if (data){
                 setData(data);

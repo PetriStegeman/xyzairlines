@@ -1,37 +1,38 @@
 $(document).ready(function() {
 
-        $('#allAirports').DataTable( {
+        $('#allPlanes').DataTable( {
                 "order": [[ 0, "asc" ]],
                 "ajax": {
-                        url: 'http://localhost:8080/api/airport/',
+                        url: 'http://localhost:8080/api/plane/',
                         dataSrc: ''
                     },
                 "columns": [
-                    { "data": "name" },
-                   // { "data": "plane" }
+                    { "data": "Plane ID" }
+                    { "data": "Amount of Fuel" },
+                    { "data": "Airport" }
                 ]
          } );
 
 
     // Functionality for interaction when clicking on rows of the table
-        $('#allAirports tbody').on( 'click', 'tr', function () {
+        $('#allPlanes tbody').on( 'click', 'tr', function () {
             if ( $(this).hasClass('selected') ) {
                 $(this).removeClass('selected');
             }
             else {
                 deselect();
                 $(this).addClass('selected');
-                var table = $('#allAirports').DataTable();
+                var table = $('#allPlanes').DataTable();
                 var data = table.row(this).data();
-                apiGetSingleAirport(data.name);
-                $('#allAirportsModal').modal('toggle');
+                apiGetSinglePlane(data.planeId);
+                $('#allPlanesModal').modal('toggle');
             }
         });
 
 } );
 
 function getData() {
-      var api = "http://localhost:8080/apiairport";
+      var api = "http://localhost:8080/api/plane";
         $.get(api, function(data){
             if (data){
                 setData(data);
@@ -40,14 +41,14 @@ function getData() {
 }
 
 function setData(data){
-    $("#allAirports").DataTable().clear();
-    $("#allAirports").DataTable().rows.add(data);
-    $("#allAirports").DataTable().columns.adjust().draw();
+    $("#allPlanes").DataTable().clear();
+    $("#allPlanes").DataTable().rows.add(data);
+    $("#allPlanes").DataTable().columns.adjust().draw();
 }
 
 // Get the data of a guest using an id
-function apiGetSingleAirport(id){
-    var api = "http://localhost:8080/api/airport/" + id;
+function apiGetSinglePlane(id){
+    var api = "http://localhost:8080/api/plane/" + id;
     $.get(api, function(data){
         if (data){
             fillUpdateDiv(data);
@@ -56,27 +57,29 @@ function apiGetSingleAirport(id){
 }
 
 // Fill the form with guestdata when updating the guest
-function fillUpdateDiv(airport){
+function fillUpdateDiv(plane){
 
-    console.log(airport);
-    $("#btndelete").attr('onclick', 'submitDelete(' + airport.name + ');');
-    $("#editbutton").attr('onclick', 'submitEdit(' + airport.name + ');');
-    document.getElementById("modal-title-all-tables").innerHTML="Edit Airport";
-    $("#name").val(airport.name);
+    console.log(plane);
+    $("#btndelete").attr('onclick', 'submitDelete(' + plane.planeId + ');');
+    $("#editbutton").attr('onclick', 'submitEdit(' + plane.planeId + ');');
+    document.getElementById("modal-title-all-tables").innerHTML="Edit Plane";
+    $("#planeId").val(plane.planeId);
+    $("#fuel").val(plane.fuel);
+    $("#airport").val(plane.airport);
     $("#confirmbutton").css('display', 'inline-block');
-    deleteID = airport.name;
+    deleteID = plane.name;
     var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete();">Confirm delete</button>';
     $('#confirmbutton').popover({
         animation:true,
         content:elem,
         html:true,
-        container: allAirportsModal
+        container: allPlanesModal
     });
 }
 
 // Deselect all items in the table
 function deselect(){
-    $('#allAirports tr.selected').removeClass('selected');
+    $('#allPlanes tr.selected').removeClass('selected');
     // rloman dit moet straks terug. ik denk dat dit het modal form is
     document.getElementById("tableForm").reset();
 }
@@ -92,7 +95,7 @@ function submitEdit(id){
         if(formData[key] == "" || formData == null) delete formData[key];
     }
     $.ajax({
-        url:"/api/airport/update/" + name,
+        url:"/api/plane/transfer/" + name,
         type:"put",
         data: JSON.stringify(formData),
         contentType: "application/json; charset=utf-8",
@@ -102,7 +105,7 @@ function submitEdit(id){
         }
     });
     deselect();
-    $('#allAirportsModal').modal('toggle');
+    $('#allPlanesModal').modal('toggle');
 }
 
 // Delete the guest in the database with the corresponding id
@@ -111,7 +114,7 @@ function submitDelete(){
     var formData = $("#tableForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
     var tableNumber = deleteID;
     $.ajax({
-        url:"/api/airport/delete/" + name,
+        url:"/api/plane/delete/" + name,
         type:"delete",
         data: JSON.stringify(formData),
         success: getData,
@@ -120,11 +123,11 @@ function submitDelete(){
 
     updateTable();
 
-    $('#allAirportsModal').modal('toggle');
+    $('#allPlanesModal').modal('toggle');
     deselect();
 }
 
     var updateTable = function(){
           console.log("ik start update");
-          $('#allAirports').DataTable().ajax.reload();
+          $('#allPlanes').DataTable().ajax.reload();
     }

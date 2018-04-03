@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#modalButton').click(modalToggle);
 
     function modalToggle (){
-    $('#addAirportModal').modal('toggle');
+    $('#addPlaneModal').modal('toggle');
     }
 
     $("#btnsubmit").click(function(){
