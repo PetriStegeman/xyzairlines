@@ -5,10 +5,7 @@ import nl.xyzairlines.xyzairlines.model.Plane;
 import nl.xyzairlines.xyzairlines.repository.AirportRepository;
 import nl.xyzairlines.xyzairlines.repository.PlaneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/plane")
@@ -45,6 +42,22 @@ public class PlaneController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public Iterable<Plane> findAll(){
         return planeRepository.findAll();
+    }
+
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    public Plane reFuel(@PathVariable("id") long planeId){
+        Iterable<Plane> allPlanes = planeRepository.findAll();
+        Plane output = new Plane();
+        for (Plane plane: allPlanes) {
+            if(plane.getPlaneId() == planeId) {
+                output.setAirport(plane.getAirport());
+                output.setFuel(5000);
+                output.setType(plane.getType());
+                output.setPlaneId(plane.getPlaneId());
+                return output;
+            }
+        }
+        throw new RuntimeException();
     }
 
 }
