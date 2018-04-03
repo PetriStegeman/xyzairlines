@@ -63,8 +63,8 @@ function fillUpdateDiv(plane){
     $("#btndelete").attr('onclick', 'submitDelete(' + plane.planeId + ');');
     $("#editbutton").attr('onclick', 'submitEdit(' + plane.planeId + ');');
     document.getElementById("modal-title-all-tables").innerHTML="Edit Plane";
-    $("#planeId").val(plane.planeId);
-    $("#fuel").val(plane.fuel);
+    Number($("#planeId").val(plane.planeId));
+    Number($("#fuel").val(plane.fuel));
     $("#airport").val(plane.airport);
     $("#confirmbutton").css('display', 'inline-block');
     deleteID = plane.planeId;
@@ -112,7 +112,7 @@ function submitEdit(id){
 function submitDelete(){
     console.log("Deleting");
     var formData = $("#tableForm").serializeArray().reduce(function(result, object){ result[object.name] = object.value; return result}, {});
-    var tableNumber = deleteID;
+    var planeId = deleteId;
     $.ajax({
         url:"/api/plane/delete/" + name,
         type:"delete",
