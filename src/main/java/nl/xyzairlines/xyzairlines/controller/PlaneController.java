@@ -34,7 +34,6 @@ public class PlaneController {
             return planeRepository.save(plane);
         }
         else {
-            // No existing writer, throw error.
             throw new RuntimeException();
         }
     }
@@ -44,7 +43,7 @@ public class PlaneController {
         return planeRepository.findAll();
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/refuel/{id}", method = RequestMethod.PUT)
     public Plane reFuel(@PathVariable("id") long planeId){
         Iterable<Plane> allPlanes = planeRepository.findAll();
         Plane output = new Plane();
@@ -58,6 +57,35 @@ public class PlaneController {
             }
         }
         throw new RuntimeException();
+    }
+
+    @RequestMapping(value = "/transfer/{id}", method = RequestMethod.PUT)
+    public Plane transfer(@PathVariable("id") long planeId, @RequestBody String airportName){
+        Iterable<Plane> allPlanes = planeRepository.findAll();
+        Iterable<Airport> allAirports = airportRepository.findAll();
+        Plane output = new Plane();
+        Airport toGo = new Airport();
+
+        //Find correct airport to fly to
+        for (Airport airport: allAirports) {
+            if(airport.getName() == airportName) {
+                toGo = airport;
+            }
+        }
+
+        //Find correct plane to fly with
+        for (Plane plane: allPlanes) {
+            if(plane.getPlaneId() == planeId) {
+                output = plane;
+                //Test if enough fuel
+                if(plane.getFuel()>=2000){
+                    plane.setAirport(toGo);
+                }
+                else throw new RuntimeException(); //Not Enough Fuel
+            }
+        }
+
+        return output;
     }
 
 }
