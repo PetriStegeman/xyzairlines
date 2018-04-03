@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Airports</title>
+
+    <!--css imports-->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <!--javascript imports-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/css/mainstyle.css">
+
+</head>
+<body>
+
+<!-- Hieronder staat het tabel waar de datatable verschijnt-->
+<table id="allAirports" class="display" style="width:100%">
+    <thead>
+    <tr>
+        <th>Airport Name</th>
+        <th>Stationary Planes</th>
+    </tr>
+    </thead>
+</table>
+
+<!-- Hieronder staat de modal die opgeroepen wordt in de datatable-->
+<div class="modal fade" id="allAirportsModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title-all-tables">All tables</h3>
+            </div>
+            <div class="modal-body">
+                <form id="tableForm" enctype='text/plain'>
+                    <h5 class="test">Input airport name </h5><input type='text' class="form-control" name='name' id="tableNumberTwo"><br>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" id="confirmbutton" data-title="Are you sure" data-trigger="focus" data-toggle="clickover" data-placement="top" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-default" id="btnclosealltable" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Hieronder staat knop met daaronder de modal waarmee een nieuwe tafel toegevoegd kan worden-->
+<button type="button" class="btn btn-info" id="modalButton">Add a Table</button>
+
+<div class="modal fade" id="addAirportModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Add a Table</h3>
+            </div>
+            <div class="modal-body">
+                <h5 class="test">Input airport name: </h5><input type="text" name="name" id="newName"><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnsubmit">Add new Airport</button>
+                <button type="button" class="btn btn-default" id="btnclose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/datatable.js"></script>
+<script src="/js/airports.js"></script>
+
+</body>
+</html>
