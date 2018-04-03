@@ -7,9 +7,9 @@ $(document).ready(function() {
                         dataSrc: ''
                     },
                 "columns": [
-                    { "data": "Plane ID" }
-                    { "data": "Amount of Fuel" },
-                    { "data": "Airport" }
+                    { "data": "planeId" },
+                    { "data": "fuel" },
+                    { "data": "airport" }
                 ]
          } );
 
