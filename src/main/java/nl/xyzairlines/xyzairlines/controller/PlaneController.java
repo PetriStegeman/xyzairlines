@@ -43,6 +43,11 @@ public class PlaneController {
         return planeRepository.findAll();
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    public Plane findOne(@PathVariable long id){
+        return planeRepository.findOne(id);
+    }
+
     @RequestMapping(value = "/refuel/{id}", method = RequestMethod.PUT)
     public Plane reFuel(@PathVariable("id") long planeId){
         Iterable<Plane> allPlanes = planeRepository.findAll();

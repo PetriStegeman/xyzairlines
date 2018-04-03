@@ -23,7 +23,7 @@ $(document).ready(function() {
                 $(this).addClass('selected');
                 var table = $('#allAirports').DataTable();
                 var data = table.row(this).data();
-                apiGetSingleAirport(data.name);
+                apiGetSingleAirport(data.getId);
                 $('#allAirportsModal').modal('toggle');
             }
         });
@@ -59,12 +59,12 @@ function apiGetSingleAirport(id){
 function fillUpdateDiv(airport){
 
     console.log(airport);
-    $("#btndelete").attr('onclick', 'submitDelete(' + airport.name + ');');
-    $("#editbutton").attr('onclick', 'submitEdit(' + airport.name + ');');
+    $("#btndelete").attr('onclick', 'submitDelete(' + airport.getId + ');');
+    $("#editbutton").attr('onclick', 'submitEdit(' + airport.getId + ');');
     document.getElementById("modal-title-all-tables").innerHTML="Edit Airport";
     $("#name").val(airport.name);
     $("#confirmbutton").css('display', 'inline-block');
-    deleteID = airport.name;
+    deleteID = airport.getId;
     var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete();">Confirm delete</button>';
     $('#confirmbutton').popover({
         animation:true,

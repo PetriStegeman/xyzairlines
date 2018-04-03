@@ -67,7 +67,7 @@ function fillUpdateDiv(plane){
     $("#fuel").val(plane.fuel);
     $("#airport").val(plane.airport);
     $("#confirmbutton").css('display', 'inline-block');
-    deleteID = plane.name;
+    deleteID = plane.planeId;
     var elem = '<button type="button" class="btn btn-danger" onclick="submitDelete();">Confirm delete</button>';
     $('#confirmbutton').popover({
         animation:true,
